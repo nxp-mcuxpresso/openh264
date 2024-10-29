@@ -1,0 +1,13 @@
+NXP Software Content Register
+
+Release Name: openh264
+Version: 2.1.1
+Outgoing License: BSD-2-Clause
+License File: LICENSE
+Type of content: source code
+Description and comments: Codec library which supports H.264 encoding and decoding
+Release Location: https://github.com/nxp-mcuxpresso/openh264
+Origin:
+      Cisco (BSD-2-Clause) - https://github.com/cisco/openh264/tree/v2.1.1
+      Amazon (MIT) - http://aws.amazon.com/freertos
+      NXP (BSD-3-Clause)

@@ -1,0 +1,32 @@
+
+config MCUX_COMPONENT_middleware.openh264.api
+    bool
+    default n
+
+
+config MCUX_COMPONENT_middleware.openh264.common
+    bool
+    default n
+
+
+config MCUX_COMPONENT_middleware.openh264.decoder
+    bool "Enable middleware openh264 decoder"
+    default n
+    help
+        Enable middleware.openh264.decoder component
+    select MCUX_COMPONENT_middleware.openh264.api
+    select MCUX_COMPONENT_middleware.openh264.common
+
+
+config MCUX_COMPONENT_middleware.openh264.encoder
+    bool "Enable middleware openh264 encoder"
+    default n
+    help
+        Enable middleware.openh264.encoder component
+    select MCUX_COMPONENT_middleware.openh264.api
+    select MCUX_COMPONENT_middleware.openh264.common
+
+
+config MCUX_COMPONENT_middleware.openh264.unused_files
+    bool
+    default y if MCUX_COMPONENT_middleware.openh264.decoder || MCUX_COMPONENT_middleware.openh264.encoder
