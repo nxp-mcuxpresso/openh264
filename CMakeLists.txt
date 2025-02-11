@@ -234,7 +234,6 @@ endif()
 if (CONFIG_MCUX_COMPONENT_middleware.openh264.unused_files)
     mcux_add_source(
         SOURCES LICENSE
-                CONTRIBUTORS
                 CODING_STYLE
                 README.md
                 RELEASES
