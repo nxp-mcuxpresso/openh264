@@ -1,13 +1,13 @@
 
 if (CONFIG_MCUX_COMPONENT_middleware.openh264.api)
     mcux_add_source(
-        SOURCES codec/api/svc/codec_api.h
-                codec/api/svc/codec_app_def.h
-                codec/api/svc/codec_def.h
-                codec/api/svc/codec_ver.h
+        SOURCES codec/api/wels/codec_api.h
+                codec/api/wels/codec_app_def.h
+                codec/api/wels/codec_def.h
+                codec/api/wels/codec_ver.h
     )
     mcux_add_include(
-        INCLUDES codec/api/svc
+        INCLUDES codec/api/wels
     )
 endif()
 
@@ -22,11 +22,13 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.common)
                 codec/common/inc/expand_pic.h
                 codec/common/inc/golomb_common.h
                 codec/common/inc/intra_pred_common.h
+                codec/common/inc/loongson_intrinsics.h
                 codec/common/inc/ls_defines.h
                 codec/common/inc/macros.h
                 codec/common/inc/mc.h
                 codec/common/inc/measure_time.h
                 codec/common/inc/memory_align.h
+                codec/common/inc/msa_macros.h
                 codec/common/inc/sad_common.h
                 codec/common/inc/typedefs.h
                 codec/common/inc/utils.h
