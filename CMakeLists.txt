@@ -1,5 +1,6 @@
 
 if (CONFIG_MCUX_COMPONENT_middleware.openh264.api)
+    mcux_component_version(2.6.0)
     mcux_add_source(
         SOURCES codec/api/wels/codec_api.h
                 codec/api/wels/codec_app_def.h
@@ -12,6 +13,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.api)
 endif()
 
 if (CONFIG_MCUX_COMPONENT_middleware.openh264.common)
+    mcux_component_version(2.6.0)
     mcux_add_source(
         SOURCES codec/common/inc/asmdefs_mmi.h
                 codec/common/inc/copy_mb.h
@@ -80,6 +82,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.common)
 endif()
 
 if (CONFIG_MCUX_COMPONENT_middleware.openh264.decoder)
+    mcux_component_version(2.6.0)
     mcux_add_source(
         SOURCES codec/decoder/core/inc/au_parser.h
                 codec/decoder/core/inc/bit_stream.h
@@ -143,6 +146,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.decoder)
 endif()
 
 if (CONFIG_MCUX_COMPONENT_middleware.openh264.encoder)
+    mcux_component_version(2.6.0)
     mcux_add_source(
         SOURCES codec/encoder/core/inc/as264_common.h
                 codec/encoder/core/inc/au_set.h
@@ -234,6 +238,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.encoder)
 endif()
 
 if (CONFIG_MCUX_COMPONENT_middleware.openh264.unused_files)
+    mcux_component_version(2.6.0)
     mcux_add_source(
         SOURCES LICENSE
                 CODING_STYLE
