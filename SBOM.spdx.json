@@ -1,0 +1,69 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "creationInfo": {
+    "created": "2025-05-29T02:46:01Z",
+    "creators": [
+      "Organization: NXP"
+    ],
+    "licenseListVersion": "3.20"
+  },
+  "name": "openh264-v25.06.00",
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://nxp.com/spdx/57e9bfeb-c1c9-4d86-b080-4840df4a8763",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-package-57e9bfeb-c1c9-4d86-b080-4840df4a8763",
+      "name": "openh264",
+      "versionInfo": "v25.06.00",
+      "licenseConcluded": "(BSD-2-Clause)",
+      "licenseDeclared": "(BSD-2-Clause)",
+      "downloadLocation": "https://github.com/nxp-mcuxpresso/openh264",
+      "originator": "Organization: NXP",
+      "supplier": "NOASSERTION",
+      "externalRefs": [],
+      "filesAnalyzed": false
+    },
+    {
+      "SPDXID": "SPDXRef-package-8178867b-872e-4f30-82a8-44245a222282",
+      "name": "openh264",
+      "versionInfo": "v2.6.0",
+      "licenseConcluded": "BSD-2-Clause",
+      "licenseDeclared": "BSD-2-Clause",
+      "homepage": "http://www.openh264.org/",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: alpine",
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:cisco:openh264:2.6.0:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        },
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:apk/alpine/openh264-dev@2.6.0-r0?arch=riscv64",
+          "referenceType": "purl"
+        },
+        {
+          "referenceCategory": "OTHER",
+          "referenceLocator": "21b2e8dc-6694-426b-a34a-c06c45c5dcc0",
+          "referenceType": "BlackDuck-ComponentOrigin"
+        }
+      ],
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-package-57e9bfeb-c1c9-4d86-b080-4840df4a8763"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-57e9bfeb-c1c9-4d86-b080-4840df4a8763",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-8178867b-872e-4f30-82a8-44245a222282"
+    }
+  ]
+}
