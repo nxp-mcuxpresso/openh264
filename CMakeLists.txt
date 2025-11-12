@@ -72,12 +72,17 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.common)
     )
 
     mcux_add_iar_configuration(
-        CX "--diag_suppress Pe815,Pe111,Pe186,Pe068,Pe177"
+        CX "--diag_suppress Pe815,Pe111,Pe186,Pe068,Pe177,Pe550"
     )
 
     mcux_add_armgcc_configuration(
         CX "-Wno-format\
-            -Wno-strict-aliasing"
+            -Wno-strict-aliasing\
+            -Wno-unused-variable"
+    )
+
+    mcux_add_mdk_configuration(
+        CX "-Wno-unused-variable"
     )
 endif()
 
