@@ -5,6 +5,9 @@
 
 Current version is OpenH264 v2.6.0.
 
+  - 2.6.0_rev1
+    - Added missing file codec/processing/interface/IWelsVP.h.
+
   - 2.6.0_rev0
     - Upgraded to version 2.6.0. Changes when integrate with SDK are marked using the
       macro __NXP_MSDK__.

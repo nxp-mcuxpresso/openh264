@@ -61,6 +61,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.common)
                 codec/common/src/WelsThread.cpp
                 codec/common/src/WelsThreadLib.cpp
                 codec/common/src/WelsThreadPool.cpp
+                codec/processing/interface/IWelsVP.h
     )
     mcux_add_include(
         INCLUDES codec/common/inc
