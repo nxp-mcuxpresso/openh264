@@ -67,7 +67,7 @@ extern "C" {
 #if defined(_WIN32) /*&& defined(_DEBUG)*/
 
 #include <windows.h>
-#if !(defined(__NXP_MSDK__)
+#if !(defined(__NXP_MSDK__))
 #include <stdio.h>
 #endif
 #include <stdarg.h>

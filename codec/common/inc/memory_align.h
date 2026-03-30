@@ -46,7 +46,7 @@
 
 
 #ifdef MEMORY_CHECK
-#if !(defined(__NXP_MSDK__)
+#if !(defined(__NXP_MSDK__))
 #include <stdio.h>
 #endif
 #endif//MEMORY_CHECK
