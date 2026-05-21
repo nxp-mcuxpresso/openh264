@@ -1,6 +1,6 @@
 /*!
  * \copy
- *     Copyright (c)  2013, Cisco Systems
+ *     Copyright (c)  2009-2013, Cisco Systems
  *     All rights reserved.
  *
  *     Redistribution and use in source and binary forms, with or without
@@ -28,18 +28,41 @@
  *     ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *     POSSIBILITY OF SUCH DAMAGE.
  *
+ * \file         :  ScrollDectection.h
+ *
+ * \brief        :  scroll detection class of wels video processor class
+ *
+ * \date         :  2011/04/26
+ *
+ * \description  :  rewrite the package code of scroll detection class
+ *
+ *************************************************************************************
  */
 
-#if defined(_WIN32) && !defined(__NXP_MSDK__)
-#include <windows.h>
+#include "util.h"
+#include "memory.h"
+#include "WelsFrameWork.h"
+#include "IWelsVP.h"
 
-/////////////////////////////////////////////////////////////////////////////
-// DLL Entry Point
+WELSVP_NAMESPACE_BEGIN
 
-BOOL WINAPI DllEntryPoint (HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved) {
-  if (DLL_PROCESS_ATTACH == dwReason) {
-    DisableThreadLibraryCalls (hInstance);
+class CScrollDetection : public IStrategy {
+ public:
+  CScrollDetection (int32_t iCpuFlag) {
+    m_eMethod = METHOD_SCROLL_DETECTION;
+    WelsMemset (&m_sScrollDetectionParam, 0, sizeof (m_sScrollDetectionParam));
   }
-  return TRUE;
-}
-#endif
+  ~CScrollDetection() {
+  }
+  EResult Process (int32_t iType, SPixMap* pSrcPixMap, SPixMap* pRefPixMap);
+  EResult Set (int32_t iType, void* pParam);
+  EResult Get (int32_t iType, void* pParam);
+
+ private:
+  void ScrollDetectionWithMask (SPixMap* pSrcPixMap, SPixMap* pRefPixMap);
+  void ScrollDetectionWithoutMask (SPixMap* pSrcPixMap, SPixMap* pRefPixMap);
+ private:
+  SScrollDetectionParam m_sScrollDetectionParam;
+};
+
+WELSVP_NAMESPACE_END

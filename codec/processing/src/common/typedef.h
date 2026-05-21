@@ -1,6 +1,6 @@
 /*!
  * \copy
- *     Copyright (c)  2013, Cisco Systems
+ *     Copyright (c)  2011-2013, Cisco Systems
  *     All rights reserved.
  *
  *     Redistribution and use in source and binary forms, with or without
@@ -28,18 +28,29 @@
  *     ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *     POSSIBILITY OF SUCH DAMAGE.
  *
+ * \file        :  typedef.h
+ *
+ * \brief       :  basic type definition
+ *
+ * \date        :  2011/01/04
+ *
+ * \description :  1. Define basic type with platform-independent;
+ *                 2. Define specific namespace to avoid name pollution;
+ *                 3. C++ ONLY;
+ *
+ *************************************************************************************
  */
 
-#if defined(_WIN32) && !defined(__NXP_MSDK__)
-#include <windows.h>
+#ifndef WELSVP_TYPEDEF_H
+#define WELSVP_TYPEDEF_H
 
-/////////////////////////////////////////////////////////////////////////////
-// DLL Entry Point
+#define WELSVP_EXTERN_C_BEGIN       extern "C" {
+#define WELSVP_EXTERN_C_END         }
 
-BOOL WINAPI DllEntryPoint (HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved) {
-  if (DLL_PROCESS_ATTACH == dwReason) {
-    DisableThreadLibraryCalls (hInstance);
-  }
-  return TRUE;
-}
+#define WELSVP_NAMESPACE_BEGIN      namespace WelsVP {
+#define WELSVP_NAMESPACE_END        }
+
+// Get the stdint type definitions from typedefs.h in the common lib
+#include "typedefs.h"
+
 #endif

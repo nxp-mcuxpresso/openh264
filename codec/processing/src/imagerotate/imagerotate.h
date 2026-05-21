@@ -1,6 +1,6 @@
 /*!
  * \copy
- *     Copyright (c)  2013, Cisco Systems
+ *     Copyright (c)  2011-2013, Cisco Systems
  *     All rights reserved.
  *
  *     Redistribution and use in source and binary forms, with or without
@@ -28,18 +28,58 @@
  *     ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *     POSSIBILITY OF SUCH DAMAGE.
  *
+ * \file        :  downsample.h
+ *
+ * \brief       :  image rotate class of wels video processor class
+ *
+ * \date        :  2011/04/06
+ *
+ * \description :
+ *
+ *************************************************************************************
  */
 
-#if defined(_WIN32) && !defined(__NXP_MSDK__)
-#include <windows.h>
+#ifndef WELSVP_IMAGEROTATE_H
+#define WELSVP_IMAGEROTATE_H
 
-/////////////////////////////////////////////////////////////////////////////
-// DLL Entry Point
+#include "util.h"
+#include "WelsFrameWork.h"
+#include "IWelsVP.h"
 
-BOOL WINAPI DllEntryPoint (HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved) {
-  if (DLL_PROCESS_ATTACH == dwReason) {
-    DisableThreadLibraryCalls (hInstance);
-  }
-  return TRUE;
-}
+WELSVP_NAMESPACE_BEGIN
+
+typedef void (ImageRotateFunc) (uint8_t* pSrc, uint32_t uiBytesPerPixel, uint32_t iWidth, uint32_t iHeight,
+                                uint8_t* pDst);
+
+typedef ImageRotateFunc* ImageRotateFuncPtr;
+
+ImageRotateFunc   ImageRotate90D_c;
+ImageRotateFunc   ImageRotate180D_c;
+ImageRotateFunc   ImageRotate270D_c;
+
+typedef struct {
+  ImageRotateFuncPtr    pfImageRotate90D;
+  ImageRotateFuncPtr    pfImageRotate180D;
+  ImageRotateFuncPtr    pfImageRotate270D;
+} SImageRotateFuncs;
+
+class CImageRotating : public IStrategy {
+ public:
+  CImageRotating (int32_t iCpuFlag);
+  ~CImageRotating();
+
+  EResult Process (int32_t iType, SPixMap* pSrc, SPixMap* pDst);
+
+ private:
+  void InitImageRotateFuncs (SImageRotateFuncs& pf, int32_t iCpuFlag);
+  EResult ProcessImageRotate (int32_t iType, uint8_t* pSrc, uint32_t uiBytesPerPixel, uint32_t iWidth, uint32_t iHeight,
+                              uint8_t* pDst);
+
+ private:
+  SImageRotateFuncs m_pfRotateImage;
+  int32_t          m_iCPUFlag;
+};
+
+WELSVP_NAMESPACE_END
+
 #endif

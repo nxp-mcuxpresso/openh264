@@ -61,8 +61,8 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.common)
                 codec/common/src/WelsThread.cpp
                 codec/common/src/WelsThreadLib.cpp
                 codec/common/src/WelsThreadPool.cpp
-                codec/processing/interface/IWelsVP.h
     )
+
     mcux_add_include(
         INCLUDES codec/common/inc
     )
@@ -73,20 +73,94 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.common)
     )
 
     mcux_add_iar_configuration(
-        CX "--diag_suppress Pe815,Pe111,Pe186,Pe068,Pe177,Pe550"
+        CX "--diag_suppress Pe815,Pe111,Pe186,Pe068,Pe177,Pe550,Pa084"
+        CC "--diag_suppress Pe815,Pe111,Pe186,Pe068,Pe177,Pe550,Pa084"
     )
 
     mcux_add_armgcc_configuration(
-        CX "-Wno-format\
+        CX "-w\
+            -Wno-format\
             -Wno-strict-aliasing\
             -Wno-unused-variable\
-            -Wno-address"
+            -Wno-unused-but-set-variable\
+            -Wno-unused-function\
+            -Wno-unused-parameter\
+            -Wno-sign-compare\
+            -Wno-address\
+            -Wno-narrowing\
+            -Wno-error\
+            -fpermissive\
+            -D__INT32_TYPE__=int"
 
-        CC "-Wno-address"
+        CC "-w\
+            -Wno-address\
+            -Wno-unused-variable\
+            -Wno-unused-but-set-variable\
+            -Wno-error\
+            -D__INT32_TYPE__=int"
     )
 
     mcux_add_mdk_configuration(
-        CX "-Wno-unused-variable"
+        CX "-w\
+            -Wno-unused-variable\
+            -Wno-unused-function\
+            -Wno-unused-parameter"
+        CC "-w"
+    )
+endif()
+
+if (CONFIG_MCUX_COMPONENT_middleware.openh264.procesing)
+    mcux_component_version(2.6.0)
+    mcux_add_source(
+        SOURCES codec/processing/src/adaptivequantization/AdaptiveQuantization.cpp
+                codec/processing/src/adaptivequantization/AdaptiveQuantization.h
+                codec/processing/src/backgrounddetection/BackgroundDetection.cpp
+                codec/processing/src/backgrounddetection/BackgroundDetection.h
+                codec/processing/src/common/common.h
+                codec/processing/src/common/memory.cpp
+                codec/processing/src/common/memory.h
+                codec/processing/src/common/resource.h
+                codec/processing/src/common/typedef.h
+                codec/processing/src/common/util.h
+                codec/processing/src/common/WelsFrameWork.cpp
+                codec/processing/src/common/WelsFrameWork.h
+                codec/processing/src/common/WelsFrameWorkEx.cpp
+                codec/processing/src/complexityanalysis/ComplexityAnalysis.cpp
+                codec/processing/src/complexityanalysis/ComplexityAnalysis.h
+                codec/processing/src/denoise/denoise.cpp
+                codec/processing/src/denoise/denoise.h
+                codec/processing/src/denoise/denoise_filter.cpp
+                codec/processing/src/downsample/downsample.cpp
+                codec/processing/src/downsample/downsample.h
+                codec/processing/src/downsample/downsamplefuncs.cpp
+                codec/processing/src/imagerotate/imagerotate.cpp
+                codec/processing/src/imagerotate/imagerotate.h
+                codec/processing/src/imagerotate/imagerotatefuncs.cpp
+                codec/processing/src/scenechangedetection/SceneChangeDetection.cpp
+                codec/processing/src/scenechangedetection/SceneChangeDetection.h
+                codec/processing/src/scrolldetection/ScrollDetection.cpp
+                codec/processing/src/scrolldetection/ScrollDetection.h
+                codec/processing/src/scrolldetection/ScrollDetectionFuncs.cpp
+                codec/processing/src/scrolldetection/ScrollDetectionFuncs.h
+                codec/processing/src/vaacalc/vaacalcfuncs.cpp
+                codec/processing/src/vaacalc/vaacalculation.cpp
+                codec/processing/src/vaacalc/vaacalculation.h
+                codec/processing/interface/IWelsVP.h
+    )
+
+    mcux_add_include(
+        INCLUDES codec/processing/interface
+                 codec/processing/src/common
+                 codec/processing/src/adaptivequantization
+                 codec/processing/src/backgrounddetection
+                 codec/processing/src/common
+                 codec/processing/src/complexityanalysis
+                 codec/processing/src/denoise
+                 codec/processing/src/downsample
+                 codec/processing/src/imagerotate
+                 codec/processing/src/scenechangedetection
+                 codec/processing/src/scrolldetection
+                 codec/processing/src/vaacalc
     )
 endif()
 
@@ -240,6 +314,7 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.encoder)
                 codec/encoder/plus/src/DllEntry.cpp
                 codec/encoder/plus/src/welsEncoderExt.cpp
     )
+
     mcux_add_include(
         INCLUDES codec/encoder/core/inc
                  codec/encoder/plus/inc

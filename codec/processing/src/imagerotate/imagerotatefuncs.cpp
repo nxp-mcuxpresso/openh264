@@ -1,6 +1,6 @@
 /*!
  * \copy
- *     Copyright (c)  2013, Cisco Systems
+ *     Copyright (c)  2011-2013, Cisco Systems
  *     All rights reserved.
  *
  *     Redistribution and use in source and binary forms, with or without
@@ -28,18 +28,38 @@
  *     ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *     POSSIBILITY OF SUCH DAMAGE.
  *
+ *  image_rotate.c
+ *
+ *  Created on 11-2-21.
+ *
  */
 
-#if defined(_WIN32) && !defined(__NXP_MSDK__)
-#include <windows.h>
+#include "imagerotate.h"
 
-/////////////////////////////////////////////////////////////////////////////
-// DLL Entry Point
+WELSVP_NAMESPACE_BEGIN
 
-BOOL WINAPI DllEntryPoint (HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved) {
-  if (DLL_PROCESS_ATTACH == dwReason) {
-    DisableThreadLibraryCalls (hInstance);
+void ImageRotate90D_c (uint8_t* pSrc, uint32_t uiBytesPerPixel, uint32_t iWidth, uint32_t iHeight, uint8_t* pDst) {
+  for (uint32_t j = 0; j < iHeight; j++) {
+    for (uint32_t i = 0; i < iWidth; i++) {
+      for (uint32_t n = 0; n < uiBytesPerPixel; n++)
+        pDst[ (i * iHeight + iHeight - 1 - j)*uiBytesPerPixel + n] = pSrc[ (iWidth * j + i) * uiBytesPerPixel + n];
+    }
   }
-  return TRUE;
 }
-#endif
+void ImageRotate180D_c (uint8_t* pSrc, uint32_t uiBytesPerPixel, uint32_t iWidth, uint32_t iHeight, uint8_t* pDst) {
+  for (uint32_t j = 0; j < iHeight; j++) {
+    for (uint32_t i = 0; i < iWidth; i++) {
+      for (uint32_t n = 0; n < uiBytesPerPixel; n++)
+        pDst[ ((iHeight - 1 - j)*iWidth + iWidth - 1 - i)*uiBytesPerPixel + n] = pSrc[ (iWidth * j + i) * uiBytesPerPixel + n];
+    }
+  }
+}
+void ImageRotate270D_c (uint8_t* pSrc, uint32_t uiBytesPerPixel, uint32_t iWidth, uint32_t iHeight, uint8_t* pDst) {
+  for (uint32_t j = 0; j < iWidth; j++) {
+    for (uint32_t i = 0; i < iHeight; i++) {
+      for (uint32_t n = 0; n < uiBytesPerPixel; n++)
+        pDst[ ((iWidth - 1 - j)*iHeight + i)*uiBytesPerPixel + n] = pSrc[ (iWidth * i + j) * uiBytesPerPixel + n];
+    }
+  }
+}
+WELSVP_NAMESPACE_END

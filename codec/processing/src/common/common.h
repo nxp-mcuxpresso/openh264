@@ -1,6 +1,6 @@
 /*!
  * \copy
- *     Copyright (c)  2013, Cisco Systems
+ *     Copyright (c)  2011-2013, Cisco Systems
  *     All rights reserved.
  *
  *     Redistribution and use in source and binary forms, with or without
@@ -28,18 +28,57 @@
  *     ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *     POSSIBILITY OF SUCH DAMAGE.
  *
+ * \file         :  SceneChangeDetectionCommon.h
+ *
+ * \brief        :  scene change detection class of wels video processor class
+ *
+ * \date         :  2011/03/14
+ *
+ * \description  :  1. rewrite the package code of scene change detection class
+ *
  */
 
-#if defined(_WIN32) && !defined(__NXP_MSDK__)
-#include <windows.h>
+#ifndef WELSVP_COMMON_H
+#define WELSVP_COMMON_H
 
-/////////////////////////////////////////////////////////////////////////////
-// DLL Entry Point
+#include "util.h"
+#include "memory.h"
+#include "WelsFrameWork.h"
+#include "IWelsVP.h"
+#include "sad_common.h"
+#include "intra_pred_common.h"
 
-BOOL WINAPI DllEntryPoint (HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved) {
-  if (DLL_PROCESS_ATTACH == dwReason) {
-    DisableThreadLibraryCalls (hInstance);
-  }
-  return TRUE;
-}
+
+
+typedef void (GetIntraPred) (uint8_t* pPred, uint8_t* pRef, const int32_t kiStride);
+
+typedef GetIntraPred*  GetIntraPredPtr;
+
+GetIntraPred     WelsI16x16LumaPredV_c;
+GetIntraPred     WelsI16x16LumaPredH_c;
+
+WELSVP_NAMESPACE_BEGIN
+
+typedef  int32_t (SadFunc) (uint8_t* pSrcY, int32_t iSrcStrideY, uint8_t* pRefY, int32_t iRefStrideY);
+
+typedef SadFunc*   SadFuncPtr;
+
+typedef int32_t (Sad16x16Func) (uint8_t* pSrcY, int32_t iSrcStrideY, uint8_t* pRefY, int32_t iRefStrideY);
+typedef Sad16x16Func*      PSad16x16Func;
+
+
+#ifdef HAVE_NEON
+WELSVP_EXTERN_C_BEGIN
+int32_t WelsProcessingSampleSad8x8_neon (uint8_t*, int32_t, uint8_t*, int32_t);
+WELSVP_EXTERN_C_END
+#endif
+
+#ifdef HAVE_NEON_AARCH64
+WELSVP_EXTERN_C_BEGIN
+int32_t WelsProcessingSampleSad8x8_AArch64_neon (uint8_t*, int32_t, uint8_t*, int32_t);
+WELSVP_EXTERN_C_END
+#endif
+
+WELSVP_NAMESPACE_END
+
 #endif

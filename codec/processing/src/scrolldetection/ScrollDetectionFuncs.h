@@ -1,6 +1,6 @@
 /*!
  * \copy
- *     Copyright (c)  2013, Cisco Systems
+ *     Copyright (c)  2009-2013, Cisco Systems
  *     All rights reserved.
  *
  *     Redistribution and use in source and binary forms, with or without
@@ -28,18 +28,34 @@
  *     ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *     POSSIBILITY OF SUCH DAMAGE.
  *
+ * \file         :  ScrollDetectionFuncs.h
+ *
+ * \brief        :  scroll detection class of wels video processor class
+ *
+ * \date         :  2011/04/26
+ *
+ * \description  :  rewrite the package code of scroll detection class
+ *
+ *************************************************************************************
  */
 
-#if defined(_WIN32) && !defined(__NXP_MSDK__)
-#include <windows.h>
+WELSVP_NAMESPACE_BEGIN
 
-/////////////////////////////////////////////////////////////////////////////
-// DLL Entry Point
-
-BOOL WINAPI DllEntryPoint (HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved) {
-  if (DLL_PROCESS_ATTACH == dwReason) {
-    DisableThreadLibraryCalls (hInstance);
-  }
-  return TRUE;
+#define MINIMUM_DETECT_WIDTH 50  // no less than 16
+#define CHECK_OFFSET 25
+#define MAX_SCROLL_MV_Y 511
+#define REGION_NUMBER 9
+#define RECORD_COLOR(a, x)      \
+{                               \
+  int32_t _t = (uint8_t)(a);    \
+  x[_t>>5] |= (1 << (_t&31));   \
 }
-#endif
+
+int32_t CheckLine (uint8_t* pData, int32_t iWidth);
+int32_t SelectTestLine (uint8_t* pY, int32_t iWidth, int32_t iHeight, int32_t iPicHeight,
+                        int32_t iStride, int32_t iOffsetX, int32_t iOffsetY);
+int32_t CompareLine (uint8_t* pYSrc, uint8_t* pYRef, const int32_t kiWidth);
+void ScrollDetectionCore (SPixMap* pSrcPixMap, SPixMap* pRefPixMap, int32_t iWidth, int32_t iHeight,
+                          int32_t iOffsetX, int32_t iOffsetY, SScrollDetectionParam& sScrollDetectionParam);
+
+WELSVP_NAMESPACE_END

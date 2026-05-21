@@ -40,7 +40,7 @@
 
 
 #include <assert.h>
-#if !defined(_WIN32)
+#if !defined(_WIN32) && !defined(__NXP_MSDK__)
 #include <semaphore.h>
 #include <unistd.h>
 #endif//!_WIN32
@@ -278,7 +278,7 @@ int32_t RequestMtResource (sWelsEncCtx** ppCtx, SWelsSvcCodingParam* pCodingPara
                          "pThreadPEncCtx");
   WELS_VERIFY_RETURN_IF (1, (NULL == pSmt->pThreadPEncCtx))
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__NXP_MSDK__)
   // Dummy event namespace, the windows events don't actually use this
   WelsSnprintf (pSmt->eventNamespace, sizeof (pSmt->eventNamespace), "%p", (void*) *ppCtx);
 #else

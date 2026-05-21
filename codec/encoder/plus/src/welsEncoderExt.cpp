@@ -42,7 +42,9 @@
 #include "ref_list_mgr_svc.h"
 #include "codec_ver.h"
 
+#if !defined(__NXP_MSDK__)
 #include <time.h>
+#endif
 #include <measure_time.h>
 #if defined(_WIN32) /*&& defined(_DEBUG)*/
 
@@ -51,7 +53,9 @@
 #include <stdarg.h>
 #include <sys/types.h>
 #else
+#if !defined(__NXP_MSDK__)
 #include <sys/time.h>
+#endif
 #endif
 
 namespace WelsEnc {

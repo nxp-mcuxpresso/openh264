@@ -30,16 +30,24 @@
  *
  */
 
-#if defined(_WIN32) && !defined(__NXP_MSDK__)
-#include <windows.h>
+#include "SceneChangeDetection.h"
+#include "cpu.h"
 
-/////////////////////////////////////////////////////////////////////////////
-// DLL Entry Point
+WELSVP_NAMESPACE_BEGIN
 
-BOOL WINAPI DllEntryPoint (HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved) {
-  if (DLL_PROCESS_ATTACH == dwReason) {
-    DisableThreadLibraryCalls (hInstance);
+IStrategy* BuildSceneChangeDetection (EMethods eMethod, int32_t iCpuFlag) {
+  switch (eMethod) {
+  case METHOD_SCENE_CHANGE_DETECTION_VIDEO:
+    return new CSceneChangeDetection<CSceneChangeDetectorVideo> (eMethod, iCpuFlag);
+    break;
+  case METHOD_SCENE_CHANGE_DETECTION_SCREEN:
+    return new CSceneChangeDetection<CSceneChangeDetectorScreen> (eMethod, iCpuFlag);
+    break;
+  default:
+    // not support yet
+    return NULL;
   }
-  return TRUE;
 }
-#endif
+
+WELSVP_NAMESPACE_END
+
