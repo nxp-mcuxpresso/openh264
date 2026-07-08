@@ -89,7 +89,6 @@ if (CONFIG_MCUX_COMPONENT_middleware.openh264.common)
             -Wno-address\
             -Wno-narrowing\
             -Wno-error\
-            -fpermissive\
             -D__INT32_TYPE__=int"
 
         CC "-w\
