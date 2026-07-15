@@ -30,14 +30,16 @@
  *
  */
 
-
-
 #ifndef WELS_VIDEO_CODEC_APPLICATION_DEFINITION_H__
 #define WELS_VIDEO_CODEC_APPLICATION_DEFINITION_H__
 /**
   * @file  codec_app_def.h
   * @brief Data and /or structures introduced in Cisco OpenH264 application
 */
+
+#if defined(__NXP_MSDK__)
+#include <stdint.h>
+#endif
 
 #include "codec_def.h"
 /* Constants */
@@ -347,11 +349,19 @@ typedef enum {
  */
 typedef struct {
   SliceModeEnum uiSliceMode;    ///< by default, uiSliceMode will be SM_SINGLE_SLICE
+#if defined(__NXP_MSDK__)
+  uint32_t
+  uiSliceNum;     ///< only used when uiSliceMode=1, when uiSliceNum=0 means auto design it with cpu core number
+  uint32_t
+  uiSliceMbNum[MAX_SLICES_NUM_TMP]; ///< only used when uiSliceMode=2; when =0 means setting one MB row a slice
+  uint32_t  uiSliceSizeConstraint; ///< now only used when uiSliceMode=4
+#else
   unsigned int
   uiSliceNum;     ///< only used when uiSliceMode=1, when uiSliceNum=0 means auto design it with cpu core number
   unsigned int
   uiSliceMbNum[MAX_SLICES_NUM_TMP]; ///< only used when uiSliceMode=2; when =0 means setting one MB row a slice
   unsigned int  uiSliceSizeConstraint; ///< now only used when uiSliceMode=4
+#endif
 } SSliceArgument;
 
 /**

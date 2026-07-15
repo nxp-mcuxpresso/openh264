@@ -47,6 +47,10 @@
 #ifndef IWELSVP_H_
 #define IWELSVP_H_
 
+#if defined(__NXP_MSDK__)
+#include <stdint.h>
+#endif
+
 #define WELSVP_MAJOR_VERSION   1
 #define WELSVP_MINOR_VERSION   1
 #define WELSVP_VERSION         ((WELSVP_MAJOR_VERSION << 8) + WELSVP_MINOR_VERSION)
@@ -226,7 +230,11 @@ typedef struct {
   int*  pGomComplexity;
   int*  pGomForegroundBlockNum;
   signed char*  pBackgroundMbFlag;
+#if defined(__NXP_MSDK__)
+  uint32_t* uiRefMbType;
+#else
   unsigned int* uiRefMbType;
+#endif
   SVAACalcResult*  pCalcResult;
 } SComplexityAnalysisParam;
 
